@@ -10,6 +10,27 @@ var config = {
   sourceMaps: !plugins.util.env.production
 }
 
+var app = {};
+
+app.addStyle = function(paths, filename){
+  gulp.src(paths)
+    .pipe(
+      plugins.if(
+        config.sourceMaps, 
+        plugins.plumber(function(error){
+          console.log(error.toString());
+          this.emit('end')
+        })
+      )
+    )
+    .pipe(plugins.if(config.sourceMaps, plugins.sourcemaps.init()))
+    .pipe(plugins.sass())
+    .pipe(plugins.concat(filename))
+    .pipe(config.production ? plugins.minifyCss() : plugins.util.noop())
+    .pipe(plugins.if(config.sourceMaps, plugins.sourcemaps.write('.')))
+    .pipe(gulp.dest('web/css'));   
+}
+
 gulp.task('sass', function(){
   gulp.src([
     config.assetsDir+'/sass/layout.scss',
