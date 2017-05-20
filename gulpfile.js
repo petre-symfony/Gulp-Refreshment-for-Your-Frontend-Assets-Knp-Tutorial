@@ -10,4 +10,8 @@ gulp.task('sass', function(){
     .pipe(gulp.dest('web/css')); 
 });
 
+gulp.task('watch', function(){
+  gulp.watch('app/Resources/assets/sass/**/*.scss', ['sass'])
+});
+
 gulp.task('default', ['sass']);
