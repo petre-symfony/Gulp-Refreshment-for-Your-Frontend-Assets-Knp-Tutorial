@@ -30,7 +30,9 @@ app.addStyle = function(paths, filename){
     .pipe(config.production ? plugins.minifyCss() : plugins.util.noop())
     .pipe(plugins.rev())
     .pipe(plugins.if(config.sourceMaps, plugins.sourcemaps.write('.')))
-    .pipe(gulp.dest('web/css'));   
+    .pipe(gulp.dest('web/css'))
+    .pipe(plugins.rev.manifest('app/Resources/assets/rev-manifest.json'))
+    .pipe(gulp.dest('.'));   
 }
 
 app.addScripts = function(paths, filename){
