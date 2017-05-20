@@ -24,7 +24,7 @@ app.addStyle = function(paths, filename){
           this.emit('end')
         })
       )
-    ).on('end', function(){ console.log('start '+filename)})
+    )
     .pipe(plugins.if(config.sourceMaps, plugins.sourcemaps.init()))
     .pipe(plugins.sass())
     .pipe(plugins.concat('css/'+filename))
@@ -35,11 +35,11 @@ app.addStyle = function(paths, filename){
     .pipe(plugins.rev.manifest(config.revManifestPath, {
       merge: true
     }))
-    .pipe(gulp.dest('.')).on('end', function(){ console.log('end '+filename)});   
+    .pipe(gulp.dest('.'));   
 }
 
 app.addScripts = function(paths, filename){
-  gulp.src(paths)
+  return gulp.src(paths)
     .pipe(
       plugins.if(
         config.sourceMaps, 
@@ -113,10 +113,14 @@ gulp.task('styles', function(){
 });
 
 gulp.task('scripts', function(){
-  app.addScripts([
+  var pipeline = new Pipeline();
+  
+  pipeline.add([
     config.bowerDir+'/jquery/dist/jquery.js',
     config.assetsDir+'/js/main.js'
   ], 'site.js');
+  
+  pipeline.run(app.addScripts);
 });
 
 gulp.task('fonts', function(){
