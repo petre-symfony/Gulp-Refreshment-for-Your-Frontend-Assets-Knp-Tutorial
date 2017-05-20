@@ -1,14 +1,14 @@
 var gulp = require('gulp');
-
 var plugins = require('gulp-load-plugins')();
-
+var del = require('del');
 
 var config = {
   assetsDir: 'app/Resources/assets',
   bowerDir: 'vendor/bower_components',
   sassPattern: 'sass/**/*.scss',
   production: !!plugins.util.env.production,
-  sourceMaps: !plugins.util.env.production
+  sourceMaps: !plugins.util.env.production,
+  revManifestPath: 'app/Resources/assets/rev-manifest.json'
 }
 
 var app = {};
@@ -31,7 +31,7 @@ app.addStyle = function(paths, filename){
     .pipe(plugins.rev())
     .pipe(plugins.if(config.sourceMaps, plugins.sourcemaps.write('.')))
     .pipe(gulp.dest('web'))
-    .pipe(plugins.rev.manifest('app/Resources/assets/rev-manifest.json', {
+    .pipe(plugins.rev.manifest(config.revManifestPath, {
       merge: true
     }))
     .pipe(gulp.dest('.'));   
@@ -87,9 +87,16 @@ gulp.task('fonts', function(){
   )
 });
 
+gulp.task('clean', function(){
+  del.sync(config.revManifestPath);
+  del.sync('web/css/*');
+  del.sync('web/js/*');
+  del.sync('web/fonts/*');
+});
+
 gulp.task('watch', function(){
   gulp.watch(config.assetsDir + '/' + config.sassPattern, ['styles']);
   gulp.watch(config.assetsDir + '/js/**/*.js', ['scripts']);
 });
 
-gulp.task('default', ['styles', 'scripts', 'fonts', 'watch']);
+gulp.task('default', ['clean', 'styles', 'scripts', 'fonts', 'watch']);
