@@ -32,7 +32,7 @@ app.addStyle = function(paths, filename){
     .pipe(gulp.dest('web/css'));   
 }
 
-gulp.task('sass', function(){
+gulp.task('styles', function(){
   app.addStyle([
     config.bowerDir+'/bootstrap/dist/css/bootstrap.css',
     config.assetsDir+'/sass/layout.scss',
@@ -45,7 +45,7 @@ gulp.task('sass', function(){
 });
 
 gulp.task('watch', function(){
-  gulp.watch(config.assetsDir + '/' + config.sassPattern, ['sass'])
+  gulp.watch(config.assetsDir + '/' + config.sassPattern, ['styles'])
 });
 
-gulp.task('default', ['sass', 'watch']);
+gulp.task('default', ['styles', 'watch']);
