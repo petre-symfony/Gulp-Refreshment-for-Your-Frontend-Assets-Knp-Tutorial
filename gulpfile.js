@@ -28,6 +28,7 @@ app.addStyle = function(paths, filename){
     .pipe(plugins.sass())
     .pipe(plugins.concat(filename))
     .pipe(config.production ? plugins.minifyCss() : plugins.util.noop())
+    .pipe(plugins.rev())
     .pipe(plugins.if(config.sourceMaps, plugins.sourcemaps.write('.')))
     .pipe(gulp.dest('web/css'));   
 }
