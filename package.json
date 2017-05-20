@@ -1,0 +1,8 @@
+{
+  "name": "petrero",
+  "devDependencies": {
+    "gulp-concat": "^2.6.1",
+    "gulp-minify-css": "^1.2.4",
+    "gulp-util": "^3.0.8"
+  }
+}
