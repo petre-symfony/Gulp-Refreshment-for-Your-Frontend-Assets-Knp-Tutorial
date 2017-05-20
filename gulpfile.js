@@ -60,6 +60,7 @@ gulp.task('scripts', function(){
     )
     .pipe(plugins.if(config.sourceMaps, plugins.sourcemaps.init()))
     .pipe(plugins.concat('site.js'))
+    .pipe(config.production ? plugins.uglify() : plugins.util.noop())
     .pipe(plugins.if(config.sourceMaps, plugins.sourcemaps.write('.')))
     .pipe(gulp.dest('web/js'));   
 });
