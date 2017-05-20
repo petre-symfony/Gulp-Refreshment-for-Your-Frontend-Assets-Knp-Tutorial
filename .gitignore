@@ -12,4 +12,5 @@
 /composer.phar
 /web/vendor
 /nbproject/
+/node_modules/
 
