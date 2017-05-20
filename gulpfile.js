@@ -32,6 +32,24 @@ app.addStyle = function(paths, filename){
     .pipe(gulp.dest('web/css'));   
 }
 
+app.addScripts = function(paths, filename){
+  gulp.src(paths)
+    .pipe(
+      plugins.if(
+        config.sourceMaps, 
+        plugins.plumber(function(error){
+          console.log(error.toString());
+          this.emit('end')
+        })
+      )
+    )
+    .pipe(plugins.if(config.sourceMaps, plugins.sourcemaps.init()))
+    .pipe(plugins.concat(filename))
+    .pipe(config.production ? plugins.uglify() : plugins.util.noop())
+    .pipe(plugins.if(config.sourceMaps, plugins.sourcemaps.write('.')))
+    .pipe(gulp.dest('web/js'));   
+}
+
 gulp.task('styles', function(){
   app.addStyle([
     config.bowerDir+'/bootstrap/dist/css/bootstrap.css',
@@ -45,24 +63,10 @@ gulp.task('styles', function(){
 });
 
 gulp.task('scripts', function(){
-  gulp.src([
+  app.addScripts([
     config.bowerDir+'/jquery/dist/jquery.js',
     config.assetsDir+'/js/main.js'
-  ])
-    .pipe(
-      plugins.if(
-        config.sourceMaps, 
-        plugins.plumber(function(error){
-          console.log(error.toString());
-          this.emit('end')
-        })
-      )
-    )
-    .pipe(plugins.if(config.sourceMaps, plugins.sourcemaps.init()))
-    .pipe(plugins.concat('site.js'))
-    .pipe(config.production ? plugins.uglify() : plugins.util.noop())
-    .pipe(plugins.if(config.sourceMaps, plugins.sourcemaps.write('.')))
-    .pipe(gulp.dest('web/js'));   
+  ], 'site.js');
 });
 
 gulp.task('watch', function(){
