@@ -3,6 +3,9 @@ var sass = require('gulp-sass');
 var sourcemaps = require('gulp-sourcemaps');
 var concat = require('gulp-concat');
 var minifyCSS = require('gulp-minify-css');
+var util = require('gulp-util');
+
+console.log(util.env.production);
 
 var config = {
   assetsDir: 'app/Resources/assets',
