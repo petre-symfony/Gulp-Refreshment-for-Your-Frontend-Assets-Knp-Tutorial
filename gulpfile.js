@@ -5,6 +5,7 @@ var plugins = require('gulp-load-plugins')();
 
 var config = {
   assetsDir: 'app/Resources/assets',
+  bowerDir: 'vendor/bower_components',
   sassPattern: 'sass/**/*.scss',
   production: !!plugins.util.env.production,
   sourceMaps: !plugins.util.env.production
@@ -33,6 +34,7 @@ app.addStyle = function(paths, filename){
 
 gulp.task('sass', function(){
   app.addStyle([
+    config.bowerDir+'/bootstrap/dist/css/bootstrap.css',
     config.assetsDir+'/sass/layout.scss',
     config.assetsDir+'/sass/styles.scss'
   ], 'main.css');
