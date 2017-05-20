@@ -1,26 +1,22 @@
 var gulp = require('gulp');
-var sass = require('gulp-sass');
-var sourcemaps = require('gulp-sourcemaps');
-var concat = require('gulp-concat');
-var minifyCSS = require('gulp-minify-css');
-var util = require('gulp-util');
-var gulpif = require('gulp-if');
+
+var plugins = require('gulp-load-plugins')();
 
 
 var config = {
   assetsDir: 'app/Resources/assets',
   sassPattern: 'sass/**/*.scss',
-  production: !!util.env.production,
-  sourceMaps: !util.env.production
+  production: !!plugins.util.env.production,
+  sourceMaps: !plugins.util.env.production
 }
 
 gulp.task('sass', function(){
    gulp.src(config.assetsDir + '/' + config.sassPattern)
-    .pipe(gulpif(config.sourceMaps, sourcemaps.init()))
-    .pipe(sass())
-    .pipe(concat('main.css'))
-    .pipe(config.production ? minifyCSS() : util.noop())
-    .pipe(gulpif(config.sourceMaps, sourcemaps.write('.')))
+    .pipe(plugins.if(config.sourceMaps, plugins.sourcemaps.init()))
+    .pipe(plugins.sass())
+    .pipe(plugins.concat('main.css'))
+    .pipe(config.production ? plugins.minifyCss() : plugins.util.noop())
+    .pipe(plugins.if(config.sourceMaps, plugins.sourcemaps.write('.')))
     .pipe(gulp.dest('web/css')); 
 });
 
