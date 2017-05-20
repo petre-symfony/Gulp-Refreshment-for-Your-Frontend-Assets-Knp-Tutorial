@@ -5,11 +5,11 @@ var concat = require('gulp-concat');
 var minifyCSS = require('gulp-minify-css');
 var util = require('gulp-util');
 
-console.log(util.env.production);
 
 var config = {
   assetsDir: 'app/Resources/assets',
-  sassPattern: 'sass/**/*.scss'
+  sassPattern: 'sass/**/*.scss',
+  production: !!util.env.production
 }
 
 gulp.task('sass', function(){
@@ -17,7 +17,7 @@ gulp.task('sass', function(){
     .pipe(sourcemaps.init())
     .pipe(sass())
     .pipe(concat('main.css'))
-    .pipe(minifyCSS())
+    .pipe(config.production ? minifyCSS() : util.noop())
     .pipe(sourcemaps.write('.'))
     .pipe(gulp.dest('web/css')); 
 });
