@@ -44,6 +44,26 @@ gulp.task('styles', function(){
   ], 'dinosaur.css');
 });
 
+gulp.task('scripts', function(){
+  gulp.src([
+    config.bowerDir+'/jquery/dist/jquery.js',
+    config.assetsDir+'/js/main.js'
+  ])
+    .pipe(
+      plugins.if(
+        config.sourceMaps, 
+        plugins.plumber(function(error){
+          console.log(error.toString());
+          this.emit('end')
+        })
+      )
+    )
+    .pipe(plugins.if(config.sourceMaps, plugins.sourcemaps.init()))
+    .pipe(plugins.concat('site.js'))
+    .pipe(plugins.if(config.sourceMaps, plugins.sourcemaps.write('.')))
+    .pipe(gulp.dest('web/js'));   
+});
+
 gulp.task('watch', function(){
   gulp.watch(config.assetsDir + '/' + config.sassPattern, ['styles'])
 });
