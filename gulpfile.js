@@ -65,7 +65,8 @@ gulp.task('scripts', function(){
 });
 
 gulp.task('watch', function(){
-  gulp.watch(config.assetsDir + '/' + config.sassPattern, ['styles'])
+  gulp.watch(config.assetsDir + '/' + config.sassPattern, ['styles']);
+  gulp.watch(config.assetsDir + '/js/**/*.js', ['scripts']);
 });
 
-gulp.task('default', ['styles', 'watch']);
+gulp.task('default', ['styles', 'scripts', 'watch']);
