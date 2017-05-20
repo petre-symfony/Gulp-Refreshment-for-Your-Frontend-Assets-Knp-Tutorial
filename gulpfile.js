@@ -31,7 +31,9 @@ app.addStyle = function(paths, filename){
     .pipe(plugins.rev())
     .pipe(plugins.if(config.sourceMaps, plugins.sourcemaps.write('.')))
     .pipe(gulp.dest('web'))
-    .pipe(plugins.rev.manifest('app/Resources/assets/rev-manifest.json'))
+    .pipe(plugins.rev.manifest('app/Resources/assets/rev-manifest.json', {
+      merge: true
+    }))
     .pipe(gulp.dest('.'));   
 }
 
