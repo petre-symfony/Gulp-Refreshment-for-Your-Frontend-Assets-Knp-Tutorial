@@ -1,6 +1,7 @@
 var gulp = require('gulp');
 var plugins = require('gulp-load-plugins')();
 var del = require('del');
+var Q = require('q');
 
 var config = {
   assetsDir: 'app/Resources/assets',
@@ -94,17 +95,20 @@ Pipeline.prototype.run = function(callable) {
 };
 
 gulp.task('styles', function(){
-  app.addStyle([
+  var pipeline = new Pipeline();
+  
+  pipeline.add([
     config.bowerDir+'/bootstrap/dist/css/bootstrap.css',
     config.bowerDir+'/font-awesome/css/font-awesome.css',
     config.assetsDir+'/sass/layout.scss',
     config.assetsDir+'/sass/styles.scss'
-  ], 'main.css').on('end', function(){
-    app.addStyle([
-      config.assetsDir+'/sass/dinosaur.scss',
-    ],'dinosaur.css'); 
-  });
+  ], 'main.css');
   
+  pipeline.add([
+    config.assetsDir+'/sass/dinosaur.scss',
+  ],'dinosaur.css');
+  
+  pipeline.run(app.addStyle);
   
 });
 
