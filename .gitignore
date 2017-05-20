@@ -11,7 +11,7 @@
 /bin/
 /composer.phar
 /web/vendor
-/nbproject
+/nbproject/
 /node_modules/
 /web/css
 
