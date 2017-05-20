@@ -1,8 +1,13 @@
 {% extends 'base.html.twig' %}
+{% block stylesheets %}
+  {{ parent() }}
+  <link rel="stylesheet" href="{{ asset('css/dinosaur.css') }}" />
+{% endblock %}
+
 
 {% block body %}
   <div class="dino-header text-center">
-    <h1>{{ dino.name }} the {{ dino.type }}</h1>
+    <h1>{{ dino.name }} the {{ dino.type }} <i class="fa fa-heart"></i></h1>
   </div>
   <div class="container">
     <div class="row">
