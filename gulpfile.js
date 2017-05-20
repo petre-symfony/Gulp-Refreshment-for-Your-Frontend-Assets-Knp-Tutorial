@@ -49,10 +49,15 @@ app.addScripts = function(paths, filename){
       )
     )
     .pipe(plugins.if(config.sourceMaps, plugins.sourcemaps.init()))
-    .pipe(plugins.concat(filename))
+    .pipe(plugins.concat('js/'+filename))
     .pipe(config.production ? plugins.uglify() : plugins.util.noop())
+    .pipe(plugins.rev())
     .pipe(plugins.if(config.sourceMaps, plugins.sourcemaps.write('.')))
-    .pipe(gulp.dest('web/js'));   
+    .pipe(gulp.dest('web'))
+    .pipe(plugins.rev.manifest(config.revManifestPath, {
+      merge: true
+    }))
+    .pipe(gulp.dest('.'));     
 }
 
 app.copy = function(srcFiles, outputDir){

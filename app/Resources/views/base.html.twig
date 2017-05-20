@@ -41,7 +41,7 @@
     </div>
 
     {% block javascripts %}
-      <script src="{{ asset('js/site.js') }}"></script>
+      <script src="{{ asset('js/site.js'|asset_version) }}"></script>
     {% endblock %}
   </body>
 </html>
