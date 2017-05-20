@@ -19,4 +19,4 @@ gulp.task('watch', function(){
   gulp.watch(config.assetsDir + '/' + config.sassPattern, ['sass'])
 });
 
-gulp.task('default', ['sass']);
+gulp.task('default', ['sass', 'watch']);
