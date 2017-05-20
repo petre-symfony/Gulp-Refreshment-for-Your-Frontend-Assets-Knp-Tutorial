@@ -40,6 +40,8 @@
       </div>
     </div>
 
-    {% block javascripts %}{% endblock %}
+    {% block javascripts %}
+      <script src="{{ asset('js/site.js') }}"></script>
+    {% endblock %}
   </body>
 </html>
