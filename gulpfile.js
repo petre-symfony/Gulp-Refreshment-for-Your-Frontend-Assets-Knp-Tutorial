@@ -4,6 +4,7 @@ var sourcemaps = require('gulp-sourcemaps');
 var concat = require('gulp-concat');
 var minifyCSS = require('gulp-minify-css');
 var util = require('gulp-util');
+var gulpif = require('gulp-if');
 
 
 var config = {
@@ -15,11 +16,11 @@ var config = {
 
 gulp.task('sass', function(){
    gulp.src(config.assetsDir + '/' + config.sassPattern)
-    .pipe(sourcemaps.init())
+    .pipe(gulpif(config.sourceMaps, sourcemaps.init()))
     .pipe(sass())
     .pipe(concat('main.css'))
     .pipe(config.production ? minifyCSS() : util.noop())
-    .pipe(sourcemaps.write('.'))
+    .pipe(gulpif(config.sourceMaps, sourcemaps.write('.')))
     .pipe(gulp.dest('web/css')); 
 });
 
