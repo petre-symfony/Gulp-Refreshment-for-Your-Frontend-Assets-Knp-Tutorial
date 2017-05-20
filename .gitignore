@@ -12,4 +12,8 @@
 /composer.phar
 /web/vendor
 /nbproject/
-
+/node_modules/
+/web/css
+/web/js
+/web/fonts
+/app/Resources/assets/rev-manifest.json
