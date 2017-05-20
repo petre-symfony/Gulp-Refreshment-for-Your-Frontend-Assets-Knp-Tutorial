@@ -23,7 +23,7 @@ app.addStyle = function(paths, filename){
           this.emit('end')
         })
       )
-    )
+    ).on('end', function(){ console.log('start '+filename)})
     .pipe(plugins.if(config.sourceMaps, plugins.sourcemaps.init()))
     .pipe(plugins.sass())
     .pipe(plugins.concat('css/'+filename))
@@ -34,7 +34,7 @@ app.addStyle = function(paths, filename){
     .pipe(plugins.rev.manifest(config.revManifestPath, {
       merge: true
     }))
-    .pipe(gulp.dest('.'));   
+    .pipe(gulp.dest('.')).on('end', function(){ console.log('end '+filename)});   
 }
 
 app.addScripts = function(paths, filename){
