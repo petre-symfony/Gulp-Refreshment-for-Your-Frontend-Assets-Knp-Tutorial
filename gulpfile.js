@@ -37,6 +37,9 @@ gulp.task('sass', function(){
     config.assetsDir+'/sass/styles.scss'
   ], 'main.css');
   
+  app.addStyle([
+     config.assetsDir+'/sass/dinosaur.scss',
+  ], 'dinosaur.css');
 });
 
 gulp.task('watch', function(){
