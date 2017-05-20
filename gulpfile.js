@@ -11,7 +11,10 @@ var config = {
 }
 
 gulp.task('sass', function(){
-   gulp.src(config.assetsDir + '/' + config.sassPattern)
+  gulp.src([
+    config.assetsDir+'/sass/layout.scss',
+    config.assetsDir+'/sass/styles.scss'
+  ])
     .pipe(
       plugins.if(
         config.sourceMaps, 
