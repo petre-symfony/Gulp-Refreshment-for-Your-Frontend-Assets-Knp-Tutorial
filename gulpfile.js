@@ -32,25 +32,11 @@ app.addStyle = function(paths, filename){
 }
 
 gulp.task('sass', function(){
-  gulp.src([
+  app.addStyle([
     config.assetsDir+'/sass/layout.scss',
     config.assetsDir+'/sass/styles.scss'
-  ])
-    .pipe(
-      plugins.if(
-        config.sourceMaps, 
-        plugins.plumber(function(error){
-          console.log(error.toString());
-          this.emit('end')
-        })
-      )
-    )
-    .pipe(plugins.if(config.sourceMaps, plugins.sourcemaps.init()))
-    .pipe(plugins.sass())
-    .pipe(plugins.concat('main.css'))
-    .pipe(config.production ? plugins.minifyCss() : plugins.util.noop())
-    .pipe(plugins.if(config.sourceMaps, plugins.sourcemaps.write('.')))
-    .pipe(gulp.dest('web/css')); 
+  ], 'main.css');
+  
 });
 
 gulp.task('watch', function(){
