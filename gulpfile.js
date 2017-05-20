@@ -14,7 +14,7 @@ var config = {
 var app = {};
 
 app.addStyle = function(paths, filename){
-  gulp.src(paths)
+  return gulp.src(paths)
     .pipe(
       plugins.if(
         config.sourceMaps, 
@@ -71,11 +71,13 @@ gulp.task('styles', function(){
     config.bowerDir+'/font-awesome/css/font-awesome.css',
     config.assetsDir+'/sass/layout.scss',
     config.assetsDir+'/sass/styles.scss'
-  ], 'main.css');
+  ], 'main.css').on('end', function(){
+    app.addStyle([
+      config.assetsDir+'/sass/dinosaur.scss',
+    ],'dinosaur.css'); 
+  });
   
-  app.addStyle([
-     config.assetsDir+'/sass/dinosaur.scss',
-  ], 'dinosaur.css');
+  
 });
 
 gulp.task('scripts', function(){
