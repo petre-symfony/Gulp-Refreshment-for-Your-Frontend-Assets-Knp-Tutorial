@@ -53,6 +53,7 @@ app.addScripts = function(paths, filename){
 gulp.task('styles', function(){
   app.addStyle([
     config.bowerDir+'/bootstrap/dist/css/bootstrap.css',
+    config.bowerDir+'/font-awesome/css/font-awesome.css',
     config.assetsDir+'/sass/layout.scss',
     config.assetsDir+'/sass/styles.scss'
   ], 'main.css');
