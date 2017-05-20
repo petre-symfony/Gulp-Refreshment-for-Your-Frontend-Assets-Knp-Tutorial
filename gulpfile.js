@@ -9,7 +9,8 @@ var util = require('gulp-util');
 var config = {
   assetsDir: 'app/Resources/assets',
   sassPattern: 'sass/**/*.scss',
-  production: !!util.env.production
+  production: !!util.env.production,
+  sourceMaps: !util.env.production
 }
 
 gulp.task('sass', function(){
