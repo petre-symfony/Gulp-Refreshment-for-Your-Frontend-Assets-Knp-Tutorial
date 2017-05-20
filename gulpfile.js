@@ -26,11 +26,11 @@ app.addStyle = function(paths, filename){
     )
     .pipe(plugins.if(config.sourceMaps, plugins.sourcemaps.init()))
     .pipe(plugins.sass())
-    .pipe(plugins.concat(filename))
+    .pipe(plugins.concat('css/'+filename))
     .pipe(config.production ? plugins.minifyCss() : plugins.util.noop())
     .pipe(plugins.rev())
     .pipe(plugins.if(config.sourceMaps, plugins.sourcemaps.write('.')))
-    .pipe(gulp.dest('web/css'))
+    .pipe(gulp.dest('web'))
     .pipe(plugins.rev.manifest('app/Resources/assets/rev-manifest.json'))
     .pipe(gulp.dest('.'));   
 }
