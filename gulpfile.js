@@ -127,7 +127,7 @@ gulp.task('fonts', function(){
   app.copy(
     config.bowerDir+'/font-awesome/fonts/*',
     'web/fonts'        
-  )
+  ).on('end', function(){ console.log('finished fonts!') })
 });
 
 gulp.task('clean', function(){
@@ -138,6 +138,7 @@ gulp.task('clean', function(){
 });
 
 gulp.task('watch', function(){
+  console.log('starting watch!');
   gulp.watch(config.assetsDir + '/' + config.sassPattern, ['styles']);
   gulp.watch(config.assetsDir + '/js/**/*.js', ['scripts']);
 });
