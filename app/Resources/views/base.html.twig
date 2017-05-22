@@ -7,7 +7,7 @@
     <title>{% block title %}Journey to the Center of Symfony!{% endblock %}</title>
 
     {% block stylesheets %}
-      <link rel="stylesheet" href="{{ asset('vendor/bootstrap/dist/css/bootstrap.css') }}"/>
+      <link rel="stylesheet" href="{{ asset('css/main.css'|asset_version) }}" />
 
       <!-- Google Fonts -->
       <link href='http://fonts.googleapis.com/css?family=Shadows+Into+Light' rel='stylesheet' type='text/css'>
@@ -40,6 +40,8 @@
       </div>
     </div>
 
-    {% block javascripts %}{% endblock %}
+    {% block javascripts %}
+      <script src="{{ asset('js/site.js'|asset_version) }}"></script>
+    {% endblock %}
   </body>
 </html>
