@@ -62,7 +62,7 @@ app.addScripts = function(paths, filename){
 }
 
 app.copy = function(srcFiles, outputDir){
-  gulp.src(srcFiles)
+  return gulp.src(srcFiles)
     .pipe(gulp.dest(outputDir));
 }
 
