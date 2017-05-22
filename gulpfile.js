@@ -124,7 +124,7 @@ gulp.task('scripts', function(){
 });
 
 gulp.task('fonts', function(){
-  app.copy(
+  return app.copy(
     config.bowerDir+'/font-awesome/fonts/*',
     'web/fonts'        
   ).on('end', function(){ console.log('finished fonts!') })
