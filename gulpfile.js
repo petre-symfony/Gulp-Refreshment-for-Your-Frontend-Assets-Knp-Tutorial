@@ -108,7 +108,7 @@ gulp.task('styles', function(){
     config.assetsDir+'/sass/dinosaur.scss',
   ],'dinosaur.css');
   
-  pipeline.run(app.addStyle);
+  return pipeline.run(app.addStyle);
   
 });
 
@@ -120,14 +120,14 @@ gulp.task('scripts', function(){
     config.assetsDir+'/js/main.js'
   ], 'site.js');
   
-  pipeline.run(app.addScripts);
+  return pipeline.run(app.addScripts);
 });
 
 gulp.task('fonts', function(){
   return app.copy(
     config.bowerDir+'/font-awesome/fonts/*',
     'web/fonts'        
-  ).on('end', function(){ console.log('finished fonts!') })
+  )
 });
 
 gulp.task('clean', function(){
@@ -137,8 +137,7 @@ gulp.task('clean', function(){
   del.sync('web/fonts/*');
 });
 
-gulp.task('watch', ['fonts'], function(){
-  console.log('starting watch!');
+gulp.task('watch', function(){
   gulp.watch(config.assetsDir + '/' + config.sassPattern, ['styles']);
   gulp.watch(config.assetsDir + '/js/**/*.js', ['scripts']);
 });
