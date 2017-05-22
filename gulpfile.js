@@ -137,7 +137,7 @@ gulp.task('clean', function(){
   del.sync('web/fonts/*');
 });
 
-gulp.task('watch', function(){
+gulp.task('watch', ['fonts'], function(){
   console.log('starting watch!');
   gulp.watch(config.assetsDir + '/' + config.sassPattern, ['styles']);
   gulp.watch(config.assetsDir + '/js/**/*.js', ['scripts']);
